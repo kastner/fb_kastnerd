@@ -1,4 +1,4 @@
-$:.unshift File.dirname(__FILE__) + 'lib/mustache/lib'
+$:.unshift File.dirname(__FILE__) + '/lib/mustache/lib'
 require 'sinatra/base'
 require 'mustache/sinatra'
 require 'ruby-debug'
