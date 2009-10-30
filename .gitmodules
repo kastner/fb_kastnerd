@@ -1,0 +1,3 @@
+[submodule "lib/mustache"]
+	path = lib/mustache
+	url = git://github.com/defunkt/mustache.git
