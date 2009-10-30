@@ -6,6 +6,8 @@
 # by Scott Raymond <sco@scottraymond.net>
 # Public Domain.
 #
+require 'net/http'
+require 'json'
 class FacebookClient
   def initialize(default_params={})
     params = {

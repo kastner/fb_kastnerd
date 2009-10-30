@@ -6,7 +6,7 @@
   <script type="text/javascript">
   function callPublish(msg, attachment, action_link, target) {
     FB.ensureInit(function () {
-      FB.Connect.streamPublish('', attachment, action_link, target, null, function(a,b,c) {console.log(a); console.log(b); console.log(c); });
+      FB.Connect.streamPublish('', attachment, action_link, target);
     });
   }</script>
 </head>
