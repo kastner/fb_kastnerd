@@ -6,34 +6,31 @@ class Kastnerd < Sinatra::Base
   set :views, "templates/"
   set :mustaches, "views/"
   
-  PAGE_ID = "166846993630"
-  
   get "/" do
     mustache :index
   end
   
   get "/fb" do
-    fields = %w|actor_id message|
-    fql = "SELECT #{fields.join(", ")} FROM stream WHERE source_id = '#{PAGE_ID}'"
-    posts = facebook_session.fql_query(fql, "XML")
-    @wall_posts = posts.map {|p| p.inject({}) {|h, (k,v)| h[k.intern] = v; h}}
+    @wall_posts = fql(page_wall_posts_fql(166846993630))
     mustache :fb
   end
   
-  def facebook_session
-    @facebook_session ||= begin
-      if request.cookies[API_KEY]
-        fb_session = Facebooker::Session.new(API_KEY, SECRET_KEY)
-        secure_fields = %w|session_key user expires ss|.collect do |k| 
-          request.cookies["#{API_KEY}_#{k}"]
-        end
-        fb_session.secure_with! *secure_fields
-        fb_session
-      end
-    end
+  get "/john-fb" do
+    @wall_posts = fql(page_wall_posts_fql(140585057793))
+    mustache :fb
   end
   
-  def facebook_user
-    facebook_session.user
+  def fql(fql)
+    result = fb_client.call 'fql.query', :query => fql
+    result.map {|p| p.inject({}) {|h, (k,v)| h[k.intern] = v; h}}
+  end
+  
+  def page_wall_posts_fql(page_id)
+    fields = %w|actor_id message|
+    fql = "SELECT #{fields.join(", ")} FROM stream WHERE source_id = '#{page_id}'"
+  end
+  
+  def fb_client
+    FacebookClient.new(:api_key => API_KEY, :secret => SECRET_KEY)
   end
 end

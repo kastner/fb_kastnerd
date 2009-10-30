@@ -3,13 +3,9 @@ require 'sinatra/base'
 require 'mustache/sinatra'
 require 'ruby-debug'
 require 'kastnerd'
-require 'rubygems'
-require 'facebooker'
+require 'lib/fb_client'
 load 'api'
 
-use Rack::Lint
 use Rack::ShowExceptions
-use Rack::Static, :urls => %w|/images /css|, :root => "public"
-use Rack::Session::Cookie
 
 run Kastnerd.new
