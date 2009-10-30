@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>{{ title }}</title>
+  <script type="text/javascript">
+  function callPublish(msg, attachment, action_link, target) {
+    FB.ensureInit(function () {
+      FB.Connect.streamPublish('', attachment, action_link, target, null, function(a,b,c) {console.log(a); console.log(b); console.log(c); });
+    });
+  }</script>
+</head>
+<body>
+  {{{ fb_connect }}}
+  {{{ yield }}}
+</body>
+</html>

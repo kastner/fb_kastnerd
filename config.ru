@@ -3,6 +3,9 @@ require 'sinatra/base'
 require 'mustache/sinatra'
 require 'ruby-debug'
 require 'kastnerd'
+require 'rubygems'
+require 'facebooker'
+load 'api'
 
 use Rack::Lint
 use Rack::ShowExceptions
